@@ -1,6 +1,9 @@
 ;(function(){
 	var AdRemove = {
 		init : function(){
+            /**
+             * @type {{doms: Array, iframeConf: [*], classOrIdConf: [*]}}
+             */
 			var self = {
             	doms : [],
                 iframeConf : [
@@ -94,14 +97,6 @@
                 self.filterIframe();
                 self.filterDoms();
                 self.filterBaidu();
-                // var times = 0;
-                // var interval = setInterval(function(){
-                //     times ++;
-                //     times > 10 && clearInterval(interval);
-                //     self.filterIframe();
-                //     self.filterDoms();
-                //     self.filterBaidu();
-                // }, 1000);
 			}
 
 			return self;
