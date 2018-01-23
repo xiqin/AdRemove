@@ -6,14 +6,8 @@
                 iframeConf : [
                     'div iframe',
                 ],
-                classOrIdConf : [
-                    '^ad_',
-                    '_ad_',
-                    'lbd',
-					'r300',
-                    'main mb\\d',   //mb+数字
-                    'QM_Container_10000',
-                    'f-single-biz'
+                classOrIdConf : [ '^ad_', '_ad_', '-ad$', '-ad-', '_adv', 'lbd', 'r300','QM_Container_10000', 'f-single-biz',
+                    'dxy\\d', 'main mb\\d', 'cnblogs_[a-z]\\d'
                 ],
 			};
 
@@ -28,7 +22,7 @@
 			};
 
             /**
-             * filter all doms who may be advertisement
+             * filter all doms which may be advertisement
              * @returns {boolean}
              */
 			self.filterDoms = function(){
@@ -64,18 +58,50 @@
             }
 
             /**
+             * filter advertisements from the search results on baidu
+             * @returns {boolean}
+             */
+            self.filterBaidu = function(){
+                if('www.baidu.com' != window.location.host) return false;
+                $('#content_left > div').each(function(){
+                    try{
+                        ($(this).attr('style') || $(this).children('div.f13').children('span.m').html() == '广告') && $(this).remove();
+                    }catch (err){}
+                })
+            }
+
+            /**
+             * monitor all doms, because of some doms are dynamic loading or ajax
+             */
+            self.mutation = function(){
+                var article = document.body;
+                var options = {
+                    'childList' : true,         //children
+                    'attributes' : true,        //attributes
+                    'subtree' : true,
+                    // 'characterData' : true,     //change of content or text
+                }
+                var observer = new MutationObserver(function(){
+                    self.clear();
+                })
+                observer.observe(article, options);
+            }
+
+            /**
              * clear operation
              */
 			self.clear = function(){
                 self.filterIframe();
                 self.filterDoms();
-                var times = 0;
-				var interval = setInterval(function(){
-                    times ++;
-                    times > 10 && clearInterval(interval);
-                    self.filterIframe();
-                    self.filterDoms();
-				}, 1000);
+                self.filterBaidu();
+                // var times = 0;
+                // var interval = setInterval(function(){
+                //     times ++;
+                //     times > 10 && clearInterval(interval);
+                //     self.filterIframe();
+                //     self.filterDoms();
+                //     self.filterBaidu();
+                // }, 1000);
 			}
 
 			return self;
@@ -83,5 +109,5 @@
 	}
 
 
-	AdRemove.init().clear();
+	AdRemove.init().mutation();
 })()
