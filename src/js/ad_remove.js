@@ -1,34 +1,36 @@
 ;(function(){
 	var AdRemove = {
+
 		init : function(){
+
             /**
              * @type {{doms: Array, iframeConf: [*], classOrIdConf: [*]}}
              */
-			var self = {
-            	doms : [],
+            var self = {
+                doms : [],
                 iframeConf : [
                     'div iframe',
                 ],
                 classOrIdConf : [ '^ad_', '_ad_', '-ad$', '-ad-', '_adv', 'lbd', 'r300','QM_Container_10000', 'f-single-biz',
                     'dxy\\d', 'main mb\\d', 'cnblogs_[a-z]\\d'
                 ],
-			};
+            };
 
             /**
              * build regular experssion
              * @returns {RegExp}
              */
-			self.getReg = function(){
-				var regStr = '';
-				regStr = self.classOrIdConf.join('|');
-				return new RegExp('(' + regStr + ')', "gim");
-			};
+            self.getReg = function(){
+                var regStr = '';
+                regStr = self.classOrIdConf.join('|');
+                return new RegExp('(' + regStr + ')', "gim");
+            }
 
             /**
              * filter all doms which may be advertisement
              * @returns {boolean}
              */
-			self.filterDoms = function(){
+            self.filterDoms = function(){
                 var reg = self.getReg();
                 var doms = document.getElementsByTagName('*');
                 if(doms.length <= 0) return false;
@@ -45,20 +47,22 @@
                         $(element).remove();
                     }catch (err){}
                 })
-			};
+            }
+
 
             /**
              * filter advertisement which is created by iframe
              * @returns {boolean}
              */
-			self.filterIframe = function(){
-			    if(self.iframeConf.length <= 0) return false;
-			    self.iframeConf.forEach(function (element) {
+            self.filterIframe = function(){
+                if(self.iframeConf.length <= 0) return false;
+                self.iframeConf.forEach(function (element) {
                     try {
                         $(element).remove()
                     }catch (err){}
                 })
             }
+
 
             /**
              * filter advertisements from the search results on baidu
@@ -93,15 +97,15 @@
             /**
              * clear operation
              */
-			self.clear = function(){
+            self.clear = function(){
                 self.filterIframe();
                 self.filterDoms();
                 self.filterBaidu();
-			}
+            }
+
 
 			return self;
 		}
-		
 	}
 
 

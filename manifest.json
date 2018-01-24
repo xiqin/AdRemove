@@ -1,8 +1,8 @@
 {
-	"name" : "ad_remove",
+	"name" : "AdvertisementsFilter",
 	"manifest_version" : 2,
 	"version" : "1.0.0",
-	"description" : "remove advertisements in web",
+	"description" : "filter advertisements in web",
 	"author" : "simon",
 	"browser_action" : {
 		"default_icon" : "img/logo2.jpg"
