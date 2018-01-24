@@ -1,7 +1,6 @@
 ;(function(){
-	var AdRemove = {
-
-		init : function(){
+    var AdRemove = {
+        init : function(){
 
             /**
              * @type {{doms: Array, iframeConf: [*], classOrIdConf: [*]}}
@@ -104,10 +103,9 @@
             }
 
 
-			return self;
+            return self;
 		}
 	}
 
-
-	AdRemove.init().mutation();
+    AdRemove.init().mutation();
 })()
