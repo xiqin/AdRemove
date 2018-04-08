@@ -9,4 +9,4 @@ remove advertisements in web
 - 其他web站点广告
 
 
-> 如出现`误过滤`情况或`有规则可寻的广告未覆盖过滤`，请邮件提醒tian_xiqin@163.com
+> 如出现`误过滤`情况或`有规则可寻的广告未覆盖过滤`，欢迎提issue
